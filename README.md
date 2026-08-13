@@ -17,17 +17,19 @@ The pipeline is split into two primary orchestration layers: **Data Processing (
 [ Azure Blob / SFTP ]
              │ (Exponential Backoff Ingestion via Azure SDK)
              ▼
-[ Azure Databricks Cluster ] ──> [ Delta Lake (Fact Due Tables) ]
-             │                         │
-             ├── (PySpark Dedupe) <────┘ (Delinquency & Rate-Limit Check)
+[ Azure Databricks Cluster ] <── [ Delta Lake (Fact Due Tables) ]
+             │                         (Delinquency Reference Data)
+             ├── (PySpark Deduplication & Rate-Limit Check)
              │
              ├── (Window Partitioning & Chunking: 1M rows/batch)
+             │
+             ├──> [ Real-Time ADX Telemetry (Init & Staging Logs) ]
              ▼
 [ Azure Data Lake Storage (ADLS Gen2) ]
              │
              ▼
-[ Asynchronous API Dispatcher ] ──> (Concurrent HTTP Requests)
-             │                                   │
-             ▼                                   ▼
-[ Real-Time ADX Telemetry / Kusto ]    [ External REST API ]
+[ Asynchronous API Dispatcher ] ──> (Concurrent HTTP Requests) ──> [ External REST API ]
+             │
+             ▼
+[ Real-Time ADX Telemetry (API Response & KPI Logs) ]
 
