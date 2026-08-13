@@ -33,7 +33,7 @@ The pipeline is split into two primary orchestration layers: **Data Processing (
 
 ---
 
-## ✨ Key Technical Features
+### ✨ Key Technical Features
 
 * **Distributed Stateful Deduplication:** Multi-level deduplication engine implemented in PySpark using `left_outer` joins and row-level filtering.
 * **Business-Level Dedupe:** Limits triggers to max 1 per device per day per business unit.
