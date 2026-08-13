@@ -31,6 +31,8 @@ The pipeline is split into two primary orchestration layers: **Data Processing (
              ▼                                   ▼
 [ Real-Time ADX Telemetry / Kusto ]    [ External REST API ]
 
+---
+
 ## ✨ Key Technical Features
 
 * **Distributed Stateful Deduplication:** Multi-level deduplication engine implemented in PySpark using `left_outer` joins and row-level filtering.
